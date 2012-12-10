@@ -21,6 +21,10 @@ def available_list(context):
     terms = [SimpleTerm(value=li['id'], title=li['name']) for li in lists]
     return SimpleVocabulary(terms)
 
+custom_fields = SimpleVocabulary.fromItems((
+    (_(u"First name"), "FNAME"),
+    (_(u"Last name"), "LNAME"),
+    (_(u"E-mail format"), "EMAILTYPE")))
 
 def errorMessage(context):
     if not interfaces.IConnector(context).isValid:
@@ -43,6 +47,11 @@ class IMailChimpPortlet(IPortletDataProvider):
     min_length=1,
     value_type=schema.Choice(source='raptus.mailchimp.available_list'))
 
+    customfields = schema.List(
+    title=_(u'Custom fields'),
+    description=_(u'Select fields to show.'),
+    required=False,
+    value_type=schema.Choice(vocabulary=custom_fields))
 
 class Assignment(base.Assignment):
     """Portlet assignment"""
@@ -50,10 +59,12 @@ class Assignment(base.Assignment):
     implements(IMailChimpPortlet, interfaces.IProperties)
 
     _all_lists = {}
+    customfields = []
 
-    def __init__(self, name=u'', available_list=[]):
+    def __init__(self, name=u'', available_list=[], customfields=[]):
         self.name = name
         self.available_list = available_list
+        self.customfields = customfields
 
     @property
     def title(self):
@@ -75,6 +86,8 @@ class Renderer(base.Renderer):
         """
         old_form = self.request.form
         self.request.form = self.request.form.copy()
+        if self.data.customfields:
+            self.request['customfields'] = self.data.customfields
         result = getMultiAdapter((self.data, self.request),
                                  name='raptus.mailchimp.subscriberForm')()
         self.request.form = old_form

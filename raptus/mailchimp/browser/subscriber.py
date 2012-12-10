@@ -4,6 +4,7 @@ from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from zope.formlib import form
 from zope.schema.interfaces import IVocabularyFactory
 from zope.app.form.browser import MultiCheckBoxWidget as MultiCheckBoxWidgetBase
+from zope.app.form.browser import RadioWidget as RadioWidgetBase
 from zope.app.form.browser.widget import SimpleInputWidget
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 # BBB
@@ -34,6 +35,10 @@ def subscriber_list(context):
                     break
     return SimpleVocabulary(terms)
 
+email_format = SimpleVocabulary.fromItems((
+    (_(u"HTML"), "html"),
+    (_(u"Text"), "text"),
+    (_(u"Mobile"), "mobile")))
 
 def validateaddress(value):
     try:
@@ -55,6 +60,13 @@ class MultiCheckBoxWidget(MultiCheckBoxWidgetBase):
         MultiCheckBoxWidgetBase.__init__(self, field,
                                          field.value_type.vocabulary, request)
 
+class RadioWidget(RadioWidgetBase):
+    """ because the form machinery expects to instantiate widgets with two
+        parameters we need to override the constructor.
+    """
+    def __init__(self, field, request):
+        RadioWidgetBase.__init__(self, field, field.vocabulary, request)
+
 
 class ISubscriberForm(interface.Interface):
     """ The schema of subscriber view
@@ -74,11 +86,17 @@ class ISubscriberForm(interface.Interface):
         constraint=validateaddress)
 
     FNAME = schema.TextLine(
+        required=False,
         title=_('First name'))
 
     LNAME = schema.TextLine(
+        required=False,
         title=_('Last name'))
 
+    EMAILTYPE = schema.Choice(
+        required=False,
+        title=_(u'E-mail format'),
+        vocabulary=email_format)
 
 class SubscriberForm(FormBase):
     PLONEVERSION = PLONE4
@@ -96,8 +114,11 @@ class SubscriberForm(FormBase):
         props = portal_properties.raptus_mailchimp
 
         # hide all fields they are not found in properties
+        mailchimp_available_fields = list(props.mailchimp_available_fields)
+        if "customfields" in self.request:
+            mailchimp_available_fields.extend(self.request["customfields"])
         hide = [field.field.getName() for field in self.form_fields \
-             if field.field.getName() not in props.mailchimp_available_fields]
+             if field.field.getName() not in mailchimp_available_fields]
         # change schema if there is only one list available
         fields = form.Fields(ISubscriberForm, omit_readonly=True)
         if len(self.context.getAvailableList()) <= 1:
@@ -107,6 +128,8 @@ class SubscriberForm(FormBase):
             self.form_fields = fields.omit(*hide)
             self.form_fields['subscriber_list'].custom_widget = \
                                                     MultiCheckBoxWidget
+        if self.form_fields.get('EMAILTYPE'):
+            self.form_fields['EMAILTYPE'].custom_widget = RadioWidget
 
     @form.action(_('Subscribe'))
     def subscribe(self, action, data):
@@ -123,7 +146,10 @@ class SubscriberForm(FormBase):
             self.info = True
             self.form_reset = False
             return
-        success, errors = connector.addSubscribe(subscriber_list, email, data)
+        if 'EMAILTYPE' in data:
+            success, errors = connector.addSubscribe(subscriber_list, email, data, email_type=data['EMAILTYPE'])
+        else:
+            success, errors = connector.addSubscribe(subscriber_list, email, data)
         if len(errors):
             msgs = [' '.join([translate(msg, context=self.request) \
                               for msg in err.args]) for err in errors]
@@ -133,6 +159,35 @@ class SubscriberForm(FormBase):
         if success:
             self.form_reset = True
             msgid = u"You successfully subscribed to: ${lists}."
+            self.successMessage = _(msgid,
+                                    mapping={'lists': ', '.join(success)})
+            self.template = self.template_message
+
+    @form.action(_('Unsubscribe'))
+    def unsubscribe(self, action, data):
+        connector = interfaces.IConnector(self.context)
+
+        email = data.pop('email')
+        if 'subscriber_list' in data:
+            subscriber_list = data.pop('subscriber_list')
+        else:
+            subscriber_list = [li.token for li in self.subscriber_list_voc]
+
+        if len(subscriber_list) == 0:
+            self.status = _(u"You must choose at last one list.")
+            self.info = True
+            self.form_reset = False
+            return
+        success, errors = connector.delSubscribe(subscriber_list, email)
+        if len(errors):
+            msgs = [' '.join([translate(msg, context=self.request) \
+                              for msg in err.args]) for err in errors]
+            self.status = ', '.join(msgs)
+            self.errors = True
+            self.form_reset = False
+        if success:
+            self.form_reset = True
+            msgid = u"You successfully unsubscribed to: ${lists}."
             self.successMessage = _(msgid,
                                     mapping={'lists': ', '.join(success)})
             self.template = self.template_message

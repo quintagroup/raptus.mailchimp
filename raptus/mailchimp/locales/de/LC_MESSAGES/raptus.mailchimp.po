@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: raptus.mailchimp\n"
-"POT-Creation-Date: 2012-07-08 11:08+0000\n"
+"POT-Creation-Date: 2012-12-10 14:45+0000\n"
 "PO-Revision-Date: 2010-07-18 21:46+0200\n"
 "Last-Translator: Steve Beyeler <sbeyeler@raptus.com>\n"
 "Language-Team: German\n"
@@ -16,11 +16,11 @@ msgstr ""
 "Domain: raptus.mailchimp\n"
 "X-Is-Fallback-For: de-at de-li de-lu de-ch de-de\n"
 
-#: ./connector.py:70
+#: ./connector.py:87
 msgid "${email}"
 msgstr ""
 
-#: ./browser/portlet.py:28
+#: ./browser/portlet.py:32
 msgid "API key entry required for editing this portlet."
 msgstr "API-Key Eingabe benötigt, um dieses Portlet editieren zu können."
 
@@ -32,11 +32,11 @@ msgstr "Adresse 1"
 msgid "Address 2:"
 msgstr "Adresse 2"
 
-#: ./browser/portlet.py:40
+#: ./browser/portlet.py:44
 msgid "Available lists"
 msgstr "Verfügbare Listen"
 
-#: ./browser/subscriber.py:81
+#: ./browser/subscriber.py:80
 msgid "Choose the list(s) you want to subscribe to."
 msgstr "Wählen sie die Liste(n), die Sie abonnieren möchten."
 
@@ -52,9 +52,18 @@ msgstr "Firma:"
 msgid "Country:"
 msgstr "Land:"
 
-#: ./browser/subscriber.py:86
+#: ./browser/portlet.py:51
+msgid "Custom fields"
+msgstr ""
+
+#: ./browser/subscriber.py:85
 msgid "E-mail"
 msgstr "E-Mail"
+
+#: ./browser/portlet.py:27
+#: ./browser/subscriber.py:98
+msgid "E-mail format"
+msgstr ""
 
 #: ./browser/configlet.pt:91
 msgid "E-mails left:"
@@ -68,6 +77,7 @@ msgstr ""
 msgid "Fax:"
 msgstr "Fax:"
 
+#: ./browser/portlet.py:25
 #: ./browser/subscriber.py:90
 msgid "First name"
 msgstr "Vorname"
@@ -76,12 +86,16 @@ msgstr "Vorname"
 msgid "First name:"
 msgstr "Vorname:"
 
+#: ./browser/subscriber.py:39
+msgid "HTML"
+msgstr ""
+
 # Mailchimp API
-#: ./connector.py:62
+#: ./connector.py:79
 msgid "Invalid character: ${char}"
 msgstr "Ungültiges Zeichen: ${char}"
 
-#: ./browser/subscriber.py:60
+#: ./browser/subscriber.py:52
 msgid "Invalid e-mail address"
 msgstr "Ungültige E-Mail-Adresse"
 
@@ -89,7 +103,8 @@ msgstr "Ungültige E-Mail-Adresse"
 msgid "Last login:"
 msgstr "Letzter Login:"
 
-#: ./browser/subscriber.py:93
+#: ./browser/portlet.py:26
+#: ./browser/subscriber.py:94
 msgid "Last name"
 msgstr "Nachname"
 
@@ -97,7 +112,7 @@ msgstr "Nachname"
 msgid "Last name:"
 msgstr "Nachname:"
 
-#: ./browser/portlet.py:60
+#: ./browser/portlet.py:71
 #: ./profiles/default/controlpanel.xml
 msgid "MailChimp"
 msgstr "MailChimp"
@@ -118,6 +133,10 @@ msgstr "MailChimp-Konfiguration"
 msgid "Member since:"
 msgstr "Mitglied seit:"
 
+#: ./browser/subscriber.py:41
+msgid "Mobile"
+msgstr ""
+
 #: ./browser/configlet.pt:151
 msgid "Phone:"
 msgstr "Telefon:"
@@ -126,23 +145,31 @@ msgstr "Telefon:"
 msgid "Plan type:"
 msgstr "Plantyp:"
 
-#: ./browser/portlet.py:41
+#: ./browser/portlet.py:45
 msgid "Select available lists to subscribe to."
 msgstr "Bitte wählen sie Listen aus, die abonnierbar sind."
+
+#: ./browser/portlet.py:52
+msgid "Select fields to show."
+msgstr ""
 
 #: ./browser/configlet.pt:135
 msgid "State:"
 msgstr "Staat:"
 
-#: ./browser/subscriber.py:124
+#: ./browser/subscriber.py:134
 msgid "Subscribe"
 msgstr "Abonnieren"
 
-#: ./browser/portlet.py:85
+#: ./browser/portlet.py:98
 msgid "Subscribe to newsletter"
 msgstr "Newsletter abonnieren"
 
-#: ./connector.py:76
+#: ./browser/subscriber.py:40
+msgid "Text"
+msgstr ""
+
+#: ./connector.py:93
 msgid "The chosen list is not available anymore."
 msgstr "Die gewählte Liste ist nicht mehr verfügbar."
 
@@ -154,11 +181,11 @@ msgstr ""
 msgid "The provided MailChimp API key is not valid"
 msgstr "Der eingegebene MailChimp API-Key ist ungültig"
 
-#: ./browser/portlet.py:36
+#: ./browser/portlet.py:40
 msgid "Title"
 msgstr "Titel"
 
-#: ./browser/portlet.py:37
+#: ./browser/portlet.py:41
 msgid "Title of the portlet"
 msgstr "Titel des Portlets"
 
@@ -166,11 +193,15 @@ msgstr "Titel des Portlets"
 msgid "URL:"
 msgstr "URL:"
 
+#: ./browser/subscriber.py:166
+msgid "Unsubscribe"
+msgstr ""
+
 #: ./browser/configlet.pt:87
 msgid "Username:"
 msgstr "Benutzername"
 
-#: ./browser/subscriber.py:135
+#: ./browser/subscriber.py:145
 msgid "You must choose at last one list."
 msgstr "Sie müssen mindestens eine List ausgewählen."
 

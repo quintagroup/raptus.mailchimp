@@ -94,6 +94,48 @@ class Connector(object):
                 errors.append(greatape.MailChimpError(msg))
         return success, errors
 
+    def delSubscribe(self, ids, email_address, **kwargs):
+        if self.mailChimp is None:
+            self.setNewAPIKey(self.props.mailchimp_api_key)
+        defaults = dict(delete_member=False,
+                        send_goodbye=True,
+                        send_notify=True)
+        defaults.update(kwargs)
+
+        errors = []
+        success = []
+        lists = self.getLists()
+        for id in ids:
+            if id in [li['id'] for li in lists]:
+                name = [i for i in lists if i['id'] == id][0]['name']
+                try:
+                    self.mailChimp(method='listUnsubscribe',
+                                   id=id,
+                                   email_address=email_address,
+                                   **defaults)
+                    success.append(name)
+                except KeyError, error:
+                    # special error for non-ascii chars
+                    # backward compatibility
+                    error.args = getattr(error, 'args', tuple())
+                    error.args = [_('Invalid character: ${char}',
+                                    mapping=dict(char=msg))\
+                                  for msg in error.args or [error.msg]]
+                    errors.append(error)
+                except Exception, error:
+                    mapping = dict(email=email_address, list=name)
+                    # backward compatibility
+                    error.args = getattr(error, 'args', tuple())
+                    error.args = [_(msg.replace(email_address, '${email}')\
+                                    .replace(name, '${list}'),
+                                    mapping=mapping)\
+                                  for msg in error.args or [error.msg]]
+                    errors.append(error)
+            else:
+                msg = _(u'The chosen list is not available anymore.')
+                errors.append(greatape.MailChimpError(msg))
+        return success, errors
+
     def cleanUpLists(self, lists):
         return [li for li in lists if li in [i['id'] for i in self.getLists()]]
 
