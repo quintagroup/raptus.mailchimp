@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.1-qg'
+version = '1.1-qg2'
 
 setup(name='raptus.mailchimp',
       version=version,
