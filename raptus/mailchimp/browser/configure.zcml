@@ -51,6 +51,12 @@
       component=".subscriber.subscriber_list"
       />
 
+  <utility
+      name="raptus.mailchimp.email_formats"
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      component=".subscriber.email_formats"
+      />
+
   <browser:resource
       name="raptus_mailchimp_icon.gif"
       image="icon.gif"

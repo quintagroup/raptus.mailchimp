@@ -35,10 +35,12 @@ def subscriber_list(context):
                     break
     return SimpleVocabulary(terms)
 
-email_format = SimpleVocabulary.fromItems((
-    (_(u"HTML"), "html"),
-    (_(u"Text"), "text"),
-    (_(u"Mobile"), "mobile")))
+def email_formats(context):
+    return SimpleVocabulary([
+        SimpleTerm(value="html", token="html", title=_(u"HTML")),
+        SimpleTerm(value="text", token="text", title=_(u"Text")),
+        SimpleTerm(value="mobile", token="mobile", title=_(u"Mobile"))
+        ])
 
 def validateaddress(value):
     try:
@@ -94,9 +96,10 @@ class ISubscriberForm(interface.Interface):
         title=_('Last name'))
 
     EMAILTYPE = schema.Choice(
-        required=False,
+        required=True,
+        default="html",
         title=_(u'E-mail format'),
-        vocabulary=email_format)
+        source='raptus.mailchimp.email_formats')
 
 class SubscriberForm(FormBase):
     PLONEVERSION = PLONE4

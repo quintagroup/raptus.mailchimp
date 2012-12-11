@@ -132,7 +132,7 @@ msgstr ""
 
 #: ./browser/subscriber.py:41
 msgid "Mobile"
-msgstr ""
+msgstr "Mobil"
 
 #: ./browser/configlet.pt:151
 msgid "Phone:"
@@ -164,7 +164,7 @@ msgstr ""
 
 #: ./browser/subscriber.py:40
 msgid "Text"
-msgstr ""
+msgstr "Tekst"
 
 #: ./connector.py:93
 msgid "The chosen list is not available anymore."
