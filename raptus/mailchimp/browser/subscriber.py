@@ -144,6 +144,9 @@ class SubscriberForm(FormBase):
         else:
             subscriber_list = [li.token for li in self.subscriber_list_voc]
 
+        for i in data:
+            data[i] = data[i] and data[i].encode("utf-8")
+
         if len(subscriber_list) == 0:
             self.status = _(u"You must choose at last one list.")
             self.info = True
@@ -175,6 +178,9 @@ class SubscriberForm(FormBase):
             subscriber_list = data.pop('subscriber_list')
         else:
             subscriber_list = [li.token for li in self.subscriber_list_voc]
+
+        for i in data:
+            data[i] = data[i] and data[i].encode("utf-8")
 
         if len(subscriber_list) == 0:
             self.status = _(u"You must choose at last one list.")
