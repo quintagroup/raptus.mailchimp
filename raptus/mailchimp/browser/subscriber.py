@@ -164,8 +164,7 @@ class SubscriberForm(FormBase):
             self.form_reset = False
         if success:
             self.form_reset = True
-            msgid = u"You successfully subscribed to: ${lists}."
-            self.successMessage = _(msgid,
+            self.successMessage = _(u"You successfully subscribed to: ${lists}.",
                                     mapping={'lists': ', '.join(success)})
             self.template = self.template_message
 
@@ -196,8 +195,7 @@ class SubscriberForm(FormBase):
             self.form_reset = False
         if success:
             self.form_reset = True
-            msgid = u"You successfully unsubscribed to: ${lists}."
-            self.successMessage = _(msgid,
+            self.successMessage = _(u"You successfully unsubscribed to: ${lists}.",
                                     mapping={'lists': ', '.join(success)})
             self.template = self.template_message
 

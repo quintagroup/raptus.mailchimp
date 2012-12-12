@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: raputs.mailchimp\n"
-"POT-Creation-Date: 2012-12-10 14:45+0000\n"
+"POT-Creation-Date: 2012-12-12 14:22+0000\n"
 "PO-Revision-Date: 2010-07-18 22:23+0200\n"
 "Last-Translator: Steve Beyeler <sbeyeler@raptus.com>\n"
 "Language-Team: French\n"
@@ -37,7 +37,7 @@ msgstr "Adresse 2"
 msgid "Available lists"
 msgstr "Listes disponibles"
 
-#: ./browser/subscriber.py:80
+#: ./browser/subscriber.py:82
 msgid "Choose the list(s) you want to subscribe to."
 msgstr "Choisissez la/les liste(s), auquelles vous souhaitez vous abonner."
 
@@ -57,12 +57,12 @@ msgstr "Pays:"
 msgid "Custom fields"
 msgstr ""
 
-#: ./browser/subscriber.py:85
+#: ./browser/subscriber.py:87
 msgid "E-mail"
 msgstr "E-mail"
 
 #: ./browser/portlet.py:27
-#: ./browser/subscriber.py:98
+#: ./browser/subscriber.py:101
 msgid "E-mail format"
 msgstr ""
 
@@ -79,7 +79,7 @@ msgid "Fax:"
 msgstr "Fax:"
 
 #: ./browser/portlet.py:25
-#: ./browser/subscriber.py:90
+#: ./browser/subscriber.py:92
 msgid "First name"
 msgstr "Prénom"
 
@@ -87,7 +87,7 @@ msgstr "Prénom"
 msgid "First name:"
 msgstr "Prénom:"
 
-#: ./browser/subscriber.py:39
+#: ./browser/subscriber.py:40
 msgid "HTML"
 msgstr ""
 
@@ -96,7 +96,7 @@ msgstr ""
 msgid "Invalid character: ${char}"
 msgstr "Caractère non valide: ${char}"
 
-#: ./browser/subscriber.py:52
+#: ./browser/subscriber.py:54
 msgid "Invalid e-mail address"
 msgstr "Adresse e-mail non valide"
 
@@ -105,7 +105,7 @@ msgid "Last login:"
 msgstr "Dernier login:"
 
 #: ./browser/portlet.py:26
-#: ./browser/subscriber.py:94
+#: ./browser/subscriber.py:96
 msgid "Last name"
 msgstr "Nom"
 
@@ -134,7 +134,7 @@ msgstr "Configuration MailChimp"
 msgid "Member since:"
 msgstr "Membre depuis:"
 
-#: ./browser/subscriber.py:41
+#: ./browser/subscriber.py:42
 msgid "Mobile"
 msgstr ""
 
@@ -158,7 +158,7 @@ msgstr ""
 msgid "State:"
 msgstr "Etat:"
 
-#: ./browser/subscriber.py:134
+#: ./browser/subscriber.py:137
 msgid "Subscribe"
 msgstr "S'abonner"
 
@@ -166,7 +166,7 @@ msgstr "S'abonner"
 msgid "Subscribe to newsletter"
 msgstr "S'abonner à la newsletter"
 
-#: ./browser/subscriber.py:40
+#: ./browser/subscriber.py:41
 msgid "Text"
 msgstr ""
 
@@ -194,7 +194,7 @@ msgstr "Titre du portlets"
 msgid "URL:"
 msgstr "URL:"
 
-#: ./browser/subscriber.py:166
+#: ./browser/subscriber.py:171
 msgid "Unsubscribe"
 msgstr ""
 
@@ -202,9 +202,17 @@ msgstr ""
 msgid "Username:"
 msgstr "Nom d'utilisateur"
 
-#: ./browser/subscriber.py:145
+#: ./browser/subscriber.py:151
 msgid "You must choose at last one list."
 msgstr "Il vous faut choisir au moins une liste."
+
+#: ./browser/subscriber.py:167
+msgid "You successfully subscribed to: ${lists}."
+msgstr ""
+
+#: ./browser/subscriber.py:198
+msgid "You successfully unsubscribed to: ${lists}."
+msgstr ""
 
 #: ./browser/configlet.pt:84
 msgid "Your MailChimp account"
